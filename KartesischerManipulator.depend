@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1730907549 source:/home/ubuntu/KartesischerManipulator/SHA256.C
+	<cstring>
+	<fstream>
+	"SHA256.H"
+
+1730907822 /home/ubuntu/KartesischerManipulator/SHA256.H
+	<string>
+
+1730907757 source:/home/ubuntu/KartesischerManipulator/SIMPLESOCKET.C
+	<iostream>
+	<cstdio>
+	<cstring>
+	<string>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<netdb.h>
+	<unistd.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<cstdio>
+	<cstdlib>
+	<cstring>
+	<cerrno>
+	<ctime>
+	"SIMPLESOCKET.H"
+
+1730907757 /home/ubuntu/KartesischerManipulator/SIMPLESOCKET.H
+	<string>
+	<arpa/inet.h>
+
