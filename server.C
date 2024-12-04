@@ -19,9 +19,44 @@
 #include "SIMPLESOCKET.H"
 
 
+class KartServer : public TCPserver{
+public:
+    KartServer(int port, int bufferSize);
+
+
+protected:
+    string myResponse(string input);
+};
+
+
+
+
+
 int main()
 {
 	srand(time(nullptr));
+    KartServer srv(2023,25);
+    srv.run();
 
 	return 0;
 }
+
+
+KartServer::KartServer(int port, int bufferSize) : TCPserver(port, bufferSize){
+
+}
+
+string KartServer::myResponse(string input){
+
+    if( 0 == input.compare(0,6,"COORD[")){
+        return string ("OK");
+    }else{
+        return string ("UNKNOW_COMMAND");
+    }
+
+
+    return string ("ERROR");
+}
+
+
+

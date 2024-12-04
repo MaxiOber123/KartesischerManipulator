@@ -8,6 +8,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 #include <cstdio>      /* printf, NULL */
 #include <cstdlib>     /* srand, rand */
@@ -22,7 +23,22 @@ using namespace std;
 
 
 int main(){
-	srand(time(nullptr));
+    int x, y;
+
+    x = 12;
+    y = 89;
+
+    stringstream cord;
+    string output;
+
+    cord << "CORD [" << x << "," << y << "]";
+
+    output = cord.str();
+
+    cout << output << endl;
+	//srand(time(nullptr));
+
+
 
     return 0;
 }
