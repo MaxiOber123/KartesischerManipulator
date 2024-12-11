@@ -15,7 +15,7 @@
 #include <arpa/inet.h> // defines in_addr structure
 #include <sys/socket.h> // for socket creation
 #include <netinet/in.h> //contains constants and structures needed for internet domain addresses
-
+#include <sstream>
 #include "SIMPLESOCKET.H"
 
 
@@ -48,12 +48,19 @@ KartServer::KartServer(int port, int bufferSize) : TCPserver(port, bufferSize){
 
 string KartServer::myResponse(string input){
 
+    stringstream o;
+    int x, y, e;
+
     if( 0 == input.compare(0,6,"COORD[")){
-        return string ("OK");
-    }else{
-        return string ("UNKNOW_COMMAND");
+        e = sscanf(input.c_str(), "COORD[%i,%i]",&x, &y);
+    if (e!= 2){
+        return string ("COULD NOT READ COORDINATES");
     }
 
+    o << "SUMME [" << (x+y) << "]";
+    return (o.str());
+
+    }
 
     return string ("ERROR");
 }
