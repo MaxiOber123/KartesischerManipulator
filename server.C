@@ -35,7 +35,7 @@ protected:
 int main()
 {
 	srand(time(nullptr));
-    KartServer srv(2023,25);
+    KartServer srv(2024,25);
     srv.run();
 
 	return 0;
@@ -49,20 +49,41 @@ KartServer::KartServer(int port, int bufferSize) : TCPserver(port, bufferSize){
 string KartServer::myResponse(string input){
 
     stringstream o;
-    int x, y, e;
+    int x, y, e, p, r;
 
-    if( 0 == input.compare(0,6,"COORD[")){
-        e = sscanf(input.c_str(), "COORD[%i,%i]",&x, &y);
+    if (input.compare(0,6,"COORD[") == 0){
+        e=sscanf(input.c_str(), "COORD[%i,%i]",&x, &y);
     if (e!= 2){
-        return string ("COULD NOT READ COORDINATES");
-    }
-
-    o << "SUMME [" << (x+y) << "]";
-    return (o.str());
+        return string ("COULD NOT READ COORDINATES \n");
 
     }
+        o << "SUMME [" << (x+y) << "]";
+        return (o.str());
 
-    return string ("ERROR");
+    }
+
+    if (input.compare(0,2,"PEN[") == 0){
+
+
+    }
+
+    if (input.compare(0,1,"x") == 0){
+        sscanf(input.c_str(), "x%iy%ip%ir%ie",&x,&y,&p,&r);
+        if(sizeof(x) < 4 || sizeof(x) > 4){
+            return ("X-Coordinate is too small! 4 Digits required! \n");
+        }
+        if(sizeof(y) < 4 || sizeof(y) > 4){
+            return ("Y-Coordinate is too small! 4 Digits required! \n");
+        }
+
+        o << "x" << x << "y" << y << "p" << p << "r" << r << "e \n";
+
+        //Hier Weiterleitung an Mikrocontroller
+
+        return (o.str());
+    }
+
+    return string ("ERROR \n");
 }
 
 
