@@ -13,11 +13,34 @@
 
 using namespace std;
 
+
+int intLength(int input){
+    int length = 1;
+
+    if (input>0){
+        for(length = 0; input>0; length++){
+            input = input/10;
+        }
+    }
+    return length;
+}
+
+string toFour(int input){
+    string output;
+
+    output = to_string(input);
+    while(output.length() < 4){
+        output.insert (0, 1, '0');
+    }
+    return output;
+}
+
 int main() {
 	srand(time(NULL));
 	TCPclient c;
 	string host = "localhost";
 	string msg;
+	int x, y, p;
 
 	//connect to host
 	c.conn(host , 2023);
@@ -29,13 +52,18 @@ int main() {
 			msg = string("BYEBYE");
 			goOn = 0;
 		}else{
-			msg = string("client wants this");
+			x = rand() % 4000;
+			y = rand() % 4000;
+			p = rand() % 2;
+
+            msg = "x" + toFour(x) + "y" + toFour(y) + "p" + to_string(p) + "r1e";
 		}
 		cout << "client sends:" << msg << endl;
 		c.sendData(msg);
-		msg = c.receive(32);
+		msg = c.receive(64);
 		cout << "got response:" << msg << endl;
 		sleep(1);
+
 
 	}
 }

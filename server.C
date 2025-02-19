@@ -32,14 +32,9 @@ protected:
 };
 
 
-int intLength(int input){
-    int length = 1;
+int isFour(int input){
+    int length = to_string(input).length();
 
-    if (input>0){
-        for(length = 0; input>0; length++){
-            input = input/10;
-        }
-    }
     return length;
 }
 
@@ -112,16 +107,17 @@ string KartServer::myResponse(string input){
 
     if (input.compare(0,1,"x") == 0){
         sscanf(input.c_str(), "x%i""y%i""p%i""r%i""e",&x,&y,&p,&r);
-        if(intLength(x) < 4 || intLength(x) > 4){
+        if(isFour(x) < 4 || isFour(x) > 4){
             return string ("X-Coordinate is too small! 4 Digits required! \n");
         }
-        if(intLength(y) < 4 || intLength(y) > 4){
+        if(isFour(y) < 4 || isFour(y) > 4){
             return string ("Y-Coordinate is too small! 4 Digits required! \n");
         }
 
-        o << "x" << x << "y" << y << "p" << p << "r" << r << "e \n";
+        o << "x" << x << "y" << y << "p" << p << "r" << r << "e gespeichert \n";
 
         //Weiterleitung an Mikrocontroller
+        toController(x,y,p);
 
         return (o.str());
     }
@@ -145,13 +141,13 @@ string KartServer::myResponse(string input){
         if(coordFlag==0 && penFlag==0){
             return string ("Keine Koordinaten und Stiftposition zum Senden. \n");
         }else if(coordFlag==1 && penFlag==0){
-            return string ("Keine Stiftposition zum Senden. \n");
+            return string ("Keine Stiftposition zum Speichern. \n");
         }else if(coordFlag==0 && penFlag==1){
-            return string ("Keine Koordinaten zum Senden. \n");
+            return string ("Keine Koordinaten zum Speichern. \n");
         }else{
             control=toController(x,y,p);
             if(control=true){
-                o << "x" << x << "y" << y << "p" << p << "r1e" << " erfolgreich gesendet. \n";
+                o << "x" << x << "y" << y << "p" << p << "r1e" << " erfolgreich gespeichert. \n";
                 coordFlag=false;
                 penFlag=false;
                 return (o.str());
