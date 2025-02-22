@@ -1,0 +1,9 @@
+<map id="SIMPLESOCKET.H" name="SIMPLESOCKET.H">
+<area shape="rect" id="Node000001" title="Contains the definition of the classes for a TCP/IP client und server." alt="" coords="131,5,266,31"/>
+<area shape="rect" id="Node000002" href="$da/d2b/SIMPLESOCKET_8C.html" title=" " alt="" coords="5,79,139,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,40,94,81,91,76,165,35"/>
+<area shape="rect" id="Node000003" href="$d6/d8f/client_8C.html" title=" " alt="" coords="163,79,234,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,44,201,79,196,79,196,44"/>
+<area shape="rect" id="Node000004" href="$de/d69/server_8C.html" title=" " alt="" coords="259,79,333,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="227,37,282,76,279,81,224,41"/>
+</map>
