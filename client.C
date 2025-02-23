@@ -39,7 +39,7 @@ int main() {
 	TCPclient c;
 	string host = "localhost"; // Hostinitalisierung
 	string msg;
-	int x, y, p;
+	int x, y, p; // X-Koordinate, Y-Koordinate, Stiftposition
 
 	//connect to host
 	c.conn(host , 2023);
@@ -48,7 +48,7 @@ int main() {
 	bool goOn=1;
 	while(goOn){ // send and receive data
 		if((rand() % 20) < i++){
-			msg = string("BYEBYE"); // Zufaellige Chance Ubertragung zu Beenden
+			msg = string("BYEBYE"); // Zufaellige Chance Uebertragung zu Beenden
 			goOn = 0;
 		}else{
 			x = rand() % 4000; // Zufaellige X-Koordinate zwischen 0 und 4000
@@ -62,8 +62,6 @@ int main() {
 		msg = c.receive(64); // Antwort erhalten
 		cout << "got response:" << msg << endl; // Ausgabe Antwort
 		sleep(1);
-
-
 	}
 }
 

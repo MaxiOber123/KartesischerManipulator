@@ -62,6 +62,19 @@ bool isBool(int input) // Prueft ob Eingabe 0 oder 1 ist
     }
 }
 
+bool inRange(int inputX, int inputY){ // Schauen ob Koordinaten im vorgegeben Bereich sind
+    int rangeX, rangeY;
+
+    rangeX = 4000;
+    rangeY = 4000;
+
+    if(inputX <= rangeX && inputY <= rangeY){
+        return true;
+    }else{
+        return false;
+    }
+
+}
 
 int main() //Serverinitialisierung
 {
@@ -90,9 +103,9 @@ KartServer::KartServer(int port, int bufferSize) : TCPserver(port, bufferSize)
 string KartServer::myResponse(string input) // Rueckgaben
 {
 
-    stringstream o;
-    int x, y, e, p, r;
-    bool coordFlag, penFlag, control;
+    stringstream o; // output-string
+    int x, y, e, p, r; // x- Koordinate, Y-Koordinate, Anzahl Eingaben, Stiftposition, Reset
+    bool coordFlag, penFlag, control; // Koordinatenflagge, Stiftflagge, Erfolgreiche Weiterleitung an Controller
 
 
     if (input.compare(0,5,"start") == 0) // Start
@@ -102,7 +115,7 @@ string KartServer::myResponse(string input) // Rueckgaben
 
     if (input.compare(0,6,"COORD[") == 0) // Koordinaten
     {
-        if (coordFlag==1) // Wenn Koordinaten schon eingegeben wurden
+        if (coordFlag==1) // Wenn Koordinaten schon eingegeben wurden, die noch nicht weitergeleitet wurden
         {
             return string ("Koordinaten wurden bereits eingegeben! Wenn Sie die Koordinaten zurücknehmen oder überschreiben wollen, nutzen Sie 'Back', bis die Koordinaten gelöscht werden. \n");
         }
@@ -111,6 +124,10 @@ string KartServer::myResponse(string input) // Rueckgaben
         {
             return string ("COULD NOT READ COORDINATES \n");
         }
+        if (inRange(x,y) == false){ // Wenn die gegebenen Koordinaten nicht im vorgegebenen Bereich sind
+            return string ("Koordinaten sind nicht im vorgegeben Bereich! \n");
+        }
+
         coordFlag=true; // Setzen der Koordinatenflagge
 
         if(coordFlag==true && penFlag==true) // Wenn Koordinaten und Stiftposition eingegeben sind
@@ -163,6 +180,10 @@ string KartServer::myResponse(string input) // Rueckgaben
         if(isBool(p) == false) // Stiftposition 0 oder 1
         {
             return string ("Invalid pen position! Allowed are 0 (up) or 1 (down). \n");
+        }
+        if(inRange(x,y) == false) // Wenn die gegebenen Koordinaten nicht im vorgegebenen Bereich sind
+        {
+            return string ("Koordinaten sind nicht im vorgegeben Bereich! \n");
         }
 
         o << "x" << toFour(x) << "y" << toFour(y) << "p" << p << "r" << r << "e gespeichert \n";
@@ -233,7 +254,7 @@ string KartServer::myResponse(string input) // Rueckgaben
 bool KartServer::toController(int x, int y, int p) // Schreiben der Koordinaten und Stiftposition in die gemeinsame Datei
 {
     //Weiterleitung an Mikrocontroller
-    std::ofstream file("../Projekt_XY_Plotter/Eckpunkte.txt", std::ios_base::app);  // Öffnen der Textdatei zum Schreiben (Daten werden angehangen (keine Löschung von vorherigen Daten in der Datei))
+    std::ofstream file("../KartesischerManipulator/Eckpunkte.txt", std::ios_base::app);  // Öffnen der Textdatei zum Schreiben (Daten werden angehangen (keine Löschung von vorherigen Daten in der Datei))
     if (file.is_open())
     {
         file << "x" << toFour(x) << "y" << toFour(y) << "p" << p << "r1e" << "\n";

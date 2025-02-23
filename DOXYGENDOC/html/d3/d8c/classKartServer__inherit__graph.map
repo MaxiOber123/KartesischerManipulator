@@ -1,5 +1,0 @@
-<map id="KartServer" name="KartServer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,96,104"/>
-<area shape="rect" id="Node000002" href="$dc/d0f/classTCPserver.html" title="The class defining the of a TCP/IP server." alt="" coords="7,5,94,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,44,53,79,48,79,48,44"/>
-</map>
